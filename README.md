@@ -85,10 +85,3 @@ D:/nagarik-sewa/
 4. Push to branch: `git push origin feature/your-feature`
 5. Create a Pull Request.
 
-## License
-
-This project is developed by Prajwal Yadav and is not AI-generated.
-
----
-
-**Note:** This README reflects the project as of version 0.0.0 and
