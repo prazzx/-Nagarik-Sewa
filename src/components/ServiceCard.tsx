@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Lock } from "lucide-react";
-import { Service } from "@/data/services";
+import { Service } from "@/types/services";
 import { cn } from "@/lib/utils";
 
 interface ServiceCardProps {

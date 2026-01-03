@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
       <div className="container flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center gap-3">
+        <Link to="/#hero" className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground font-display font-bold text-lg">
             न
           </div>
@@ -23,16 +23,16 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
-          <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+          <Link to="/#hero" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             Home
           </Link>
-          <Link to="/services/citizenship" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+          <Link to="/#services" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             Services
           </Link>
-          <Link to="/about" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+          <Link to="#" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             About
           </Link>
-          <Link to="/contact" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+          <Link to="#" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             Contact
           </Link>
         </nav>
@@ -67,14 +67,14 @@ const Header = () => {
               Services
             </Link>
             <Link
-              to="/about"
+              to="#"
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
               onClick={() => setIsMenuOpen(false)}
             >
               About
             </Link>
             <Link
-              to="/contact"
+              to="#"
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
               onClick={() => setIsMenuOpen(false)}
             >

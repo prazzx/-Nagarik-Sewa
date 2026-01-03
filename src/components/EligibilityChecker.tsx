@@ -1,12 +1,14 @@
-import { useState } from "react";
-import { CheckCircle2, XCircle, ChevronRight, RotateCcw } from "lucide-react";
+import { useState, useEffect } from "react";
+import { CheckCircle2, XCircle, ChevronRight, RotateCcw, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { serviceEligibility, EligibilityQuestion } from "@/data/services";
+import { useEligibilityQuestions } from "@/hooks/useServices";
+import { EligibilityOption } from "@/types/services";
 import { cn } from "@/lib/utils";
 
 interface EligibilityCheckerProps {
-  serviceId?: string;
+  serviceId: string; // Remove the optional
+  onNext: () => void;
 }
 
 interface EligibilityResult {
@@ -14,25 +16,22 @@ interface EligibilityResult {
   reason: string;
 }
 
-type OptionType = {
-  value: string;
-  label: string;
-  labelNepali: string;
-  nextQuestion?: string;
-  eligible?: boolean;
-  reason?: string;
-};
-
-const EligibilityChecker = ({ serviceId = "citizenship" }: EligibilityCheckerProps) => {
-  const eligibilityQuestions = serviceEligibility[serviceId] || [];
-  const firstQuestionId = eligibilityQuestions.length > 0 ? eligibilityQuestions[0].id : "";
-  const [currentQuestionId, setCurrentQuestionId] = useState<string>(firstQuestionId);
+const EligibilityChecker = ({ serviceId, onNext }: EligibilityCheckerProps) => {
+  const { data: eligibilityQuestions = [], isLoading } = useEligibilityQuestions(serviceId);
+  const [currentQuestionId, setCurrentQuestionId] = useState<string>("");
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [result, setResult] = useState<EligibilityResult | null>(null);
 
+  // Set the first question when questions load
+  useEffect(() => {
+    if (eligibilityQuestions.length > 0 && !currentQuestionId) {
+      setCurrentQuestionId(eligibilityQuestions[0].id);
+    }
+  }, [eligibilityQuestions, currentQuestionId]);
+
   const currentQuestion = eligibilityQuestions.find(q => q.id === currentQuestionId);
 
-  const handleAnswer = (option: OptionType) => {
+  const handleAnswer = (option: EligibilityOption) => {
     const newAnswers = { ...answers, [currentQuestionId]: option.value };
     setAnswers(newAnswers);
 
@@ -47,13 +46,36 @@ const EligibilityChecker = ({ serviceId = "citizenship" }: EligibilityCheckerPro
   };
 
   const handleReset = () => {
-    setCurrentQuestionId(firstQuestionId);
+    if (eligibilityQuestions.length > 0) {
+      setCurrentQuestionId(eligibilityQuestions[0].id);
+    }
     setAnswers({});
     setResult(null);
   };
 
+  if (isLoading) {
+    return (
+      <Card>
+        <CardContent className="py-12 flex items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (eligibilityQuestions.length === 0) {
+    return (
+      <Card>
+        <CardContent className="py-8">
+          <div className="text-center text-muted-foreground">
+            <p>No eligibility questions available for this service yet.</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   const progress = Object.keys(answers).length;
-  const totalQuestions = eligibilityQuestions.length;
 
   if (result) {
     return (
@@ -75,10 +97,18 @@ const EligibilityChecker = ({ serviceId = "citizenship" }: EligibilityCheckerPro
               {result.eligible ? "You are Eligible!" : "Not Eligible"}
             </h3>
             <p className="text-muted-foreground max-w-md">{result.reason}</p>
-            <Button onClick={handleReset} variant="outline" className="mt-4">
-              <RotateCcw className="h-4 w-4 mr-2" />
-              Check Again
-            </Button>
+            <div className="flex gap-3 mt-4">
+              <Button onClick={handleReset} variant="outline">
+                <RotateCcw className="h-4 w-4 mr-2" />
+                Check Again
+              </Button>
+              {result.eligible && (
+                <Button onClick={onNext}>
+                  Next: Required Documents
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
+              )}
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -123,7 +153,7 @@ const EligibilityChecker = ({ serviceId = "citizenship" }: EligibilityCheckerPro
             <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
           </button>
         ))}
-        
+
         {progress > 0 && (
           <Button onClick={handleReset} variant="ghost" size="sm" className="mt-2">
             <RotateCcw className="h-4 w-4 mr-2" />

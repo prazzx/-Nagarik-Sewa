@@ -1,13 +1,37 @@
-import { Clock, Banknote, Info } from "lucide-react";
+import { Clock, Banknote, Info, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { serviceCosts } from "@/data/services";
+import { useServiceCost } from "@/hooks/useServices";
 
 interface CostAndTimeProps {
   serviceId?: string;
 }
 
 const CostAndTime = ({ serviceId = "citizenship" }: CostAndTimeProps) => {
-  const costAndTime = serviceCosts[serviceId] || serviceCosts.citizenship;
+  const { data: costAndTime, isLoading } = useServiceCost(serviceId);
+
+  if (isLoading) {
+    return (
+      <Card>
+        <CardContent className="py-12 flex items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!costAndTime) {
+    return (
+      <Card>
+        <CardContent className="py-8">
+          <div className="text-center text-muted-foreground">
+            <Info className="h-12 w-12 mx-auto mb-3 opacity-30" />
+            <p>No cost and time information available for this service yet.</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card>
       <CardHeader>

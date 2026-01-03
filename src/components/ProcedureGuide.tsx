@@ -1,16 +1,17 @@
-import { ExternalLink, Globe, MapPin, CheckCircle2 } from "lucide-react";
+import { ExternalLink, Globe, MapPin, CheckCircle2, ChevronRight, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { serviceProcedures, ProcedureStep } from "@/data/services";
+import { useProcedureSteps } from "@/hooks/useServices";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
 interface ProcedureGuideProps {
   serviceId?: string;
+  onNext?: () => void;
 }
 
-const ProcedureGuide = ({ serviceId = "citizenship" }: ProcedureGuideProps) => {
-  const procedure = serviceProcedures[serviceId] || [];
+const ProcedureGuide = ({ serviceId = "citizenship", onNext }: ProcedureGuideProps) => {
+  const { data: procedure = [], isLoading } = useProcedureSteps(serviceId);
   const [completedSteps, setCompletedSteps] = useState<Set<string>>(new Set());
 
   const toggleStep = (stepId: string) => {
@@ -23,19 +24,43 @@ const ProcedureGuide = ({ serviceId = "citizenship" }: ProcedureGuideProps) => {
     setCompletedSteps(newCompleted);
   };
 
+  if (isLoading) {
+    return (
+      <Card>
+        <CardContent className="py-12 flex items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (procedure.length === 0) {
+    return (
+      <Card>
+        <CardContent className="py-8">
+          <div className="text-center text-muted-foreground">
+            <p>No procedure information available for this service yet.</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  const allStepsCompleted = completedSteps.size === procedure.length && procedure.length > 0;
+
   return (
     <Card>
       <CardHeader>
         <CardTitle className="text-lg">Step-by-Step Procedure</CardTitle>
         <p className="text-sm text-muted-foreground">
-          Follow these steps to complete your citizenship application
+          Follow these steps to complete your application
         </p>
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-6">
         <div className="relative">
           {/* Progress line */}
           <div className="absolute left-[15px] top-0 bottom-0 w-0.5 bg-border" />
-          
+
           <div className="space-y-6">
             {procedure.map((step, index) => {
               const isCompleted = completedSteps.has(step.id);
@@ -46,8 +71,8 @@ const ProcedureGuide = ({ serviceId = "citizenship" }: ProcedureGuideProps) => {
                     onClick={() => toggleStep(step.id)}
                     className={cn(
                       "absolute left-0 flex h-8 w-8 items-center justify-center rounded-full border-2 transition-all z-10",
-                      isCompleted 
-                        ? "border-success bg-success text-success-foreground" 
+                      isCompleted
+                        ? "border-success bg-success text-success-foreground"
                         : "border-primary bg-card text-primary hover:bg-primary/10"
                     )}
                   >
@@ -85,7 +110,7 @@ const ProcedureGuide = ({ serviceId = "citizenship" }: ProcedureGuideProps) => {
                         </div>
                         <p className="text-xs text-muted-foreground mt-0.5">{step.titleNepali}</p>
                         <p className="text-sm text-muted-foreground mt-2">{step.description}</p>
-                        
+
                         {step.tips && step.tips.length > 0 && (
                           <div className="mt-3 p-3 rounded-md bg-accent/50">
                             <p className="text-xs font-medium text-accent-foreground mb-2">💡 Tips:</p>
@@ -100,7 +125,7 @@ const ProcedureGuide = ({ serviceId = "citizenship" }: ProcedureGuideProps) => {
                           </div>
                         )}
                       </div>
-                      
+
                       {step.link && (
                         <Button variant="outline" size="sm" asChild>
                           <a href={step.link} target="_blank" rel="noopener noreferrer">
@@ -116,6 +141,13 @@ const ProcedureGuide = ({ serviceId = "citizenship" }: ProcedureGuideProps) => {
             })}
           </div>
         </div>
+
+        {onNext && (
+          <Button onClick={onNext} className="w-full">
+            Next: Forms & Downloads
+            <ChevronRight className="ml-2 h-4 w-4" />
+          </Button>
+        )}
       </CardContent>
     </Card>
   );
