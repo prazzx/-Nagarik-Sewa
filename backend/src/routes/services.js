@@ -56,14 +56,11 @@ router.get('/:id/info', async (req, res) => {
 // Get eligibility questions for a service
 router.get('/:serviceId/eligibility', async (req, res) => {
   try {
-    console.log('=== ELIGIBILITY ROUTE ===');
-    console.log('Received serviceId:', req.params.serviceId);
-    
+   
     const questions = await EligibilityQuestion.find({ 
       serviceId: req.params.serviceId 
     }).sort({ sortOrder: 1 }).lean(); // Add .lean() here!
     
-    console.log('Found questions count:', questions.length);
     
     res.json(questions.map(q => ({
       id: q.questionId,

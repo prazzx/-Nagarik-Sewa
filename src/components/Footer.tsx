@@ -25,27 +25,65 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm opacity-80">
-              <li><Link to="/" className="hover:opacity-100 transition-opacity">Home</Link></li>
+              <li><Link to="/#hero" className="hover:opacity-100 transition-opacity">Home</Link></li>
               <li><Link to="/services/citizenship" className="hover:opacity-100 transition-opacity">Citizenship</Link></li>
               <li><Link to="/services/passport" className="hover:opacity-100 transition-opacity">Passport</Link></li>
               <li><Link to="/services/driving" className="hover:opacity-100 transition-opacity">Driving License</Link></li>
             </ul>
           </div>
 
-          <div>
-            <h4 className="font-semibold mb-4">Resources</h4>
-            <ul className="space-y-2 text-sm opacity-80">
-              <li><a href="#" className="hover:opacity-100 transition-opacity">Government Portal</a></li>
-              <li><a href="#" className="hover:opacity-100 transition-opacity">Ministry of Home Affairs</a></li>
-              <li><a href="#" className="hover:opacity-100 transition-opacity">Department of Immigration</a></li>
-            </ul>
-          </div>
+         <div>
+  <h4 className="font-semibold mb-4">Resources</h4>
+  <ul className="space-y-2 text-sm opacity-80">
+    <li>
+      <a 
+        href="http://nationaldata.gov.np/" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="hover:opacity-100 transition-opacity"
+      >
+        Government Portal
+      </a>
+    </li>
+    <li>
+      <a 
+        href="https://www.moha.gov.np/" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="hover:opacity-100 transition-opacity"
+      >
+        Ministry of Home Affairs
+      </a>
+    </li>
+    <li>
+      <a 
+        href="https://www.immigration.gov.np/" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="hover:opacity-100 transition-opacity"
+      >
+        Department of Immigration
+      </a>
+    </li>
+    <li>
+      <a 
+        href="https://mofa.gov.np/" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="hover:opacity-100 transition-opacity"
+      >
+        Ministry of Foreign Affairs
+      </a>
+    </li>
+  </ul>
+</div>
+
 
           <div>
             <h4 className="font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-sm opacity-80">
-              <li>Email: coming soon ....</li>
-              <li>Phone: coming soon ....</li>
+              <li>Email: Coming soon ....</li>
+              <li>Phone: Coming soon ....</li>
             </ul>
           </div>
         </div>
