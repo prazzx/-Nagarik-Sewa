@@ -44,8 +44,8 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-sm opacity-80">
-              <li>Email: info@nagariksewa.np</li>
-              <li>Phone: +977-1-XXXXXXX</li>
+              <li>Email: coming soon ....</li>
+              <li>Phone: coming soon ....</li>
             </ul>
           </div>
         </div>

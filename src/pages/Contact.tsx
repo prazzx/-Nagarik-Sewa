@@ -77,7 +77,7 @@ const Contact = () => {
               </div>
               <div>
                 <h3 className="font-medium">Email</h3>
-                <p className="text-muted-foreground">info@nagariksewa.np</p>
+                <p className="text-muted-foreground">coming soon ....</p>
                 <p className="text-sm text-muted-foreground mt-1">For suggestions and feedback</p>
               </div>
             </div>
@@ -87,7 +87,7 @@ const Contact = () => {
               </div>
               <div>
                 <h3 className="font-medium">Location</h3>
-                <p className="text-muted-foreground">Kathmandu, Nepal</p>
+                <p className="text-muted-foreground">Banepa , kavre </p>
                 <p className="text-sm text-muted-foreground mt-1">Online platform only</p>
               </div>
             </div>
