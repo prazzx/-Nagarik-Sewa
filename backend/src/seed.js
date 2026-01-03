@@ -261,15 +261,15 @@ const procedureSteps = [
 // ============= DOWNLOADABLE FORMS =============
 const downloadableForms = [
   // Citizenship
-  { serviceId: 'citizenship', formId: 'cit_form', name: 'Citizenship Application Form', nameNepali: 'नागरिकता आवेदन फारम', description: 'Main application form for citizenship', url: 'https://moha.gov.np/forms/citizenship', fileType: 'pdf', isExternal: true, sortOrder: 1 },
-  { serviceId: 'citizenship', formId: 'cit_ward', name: 'Ward Recommendation Request', nameNepali: 'वडा सिफारिस अनुरोध', description: 'Form to request ward recommendation', url: 'https://moha.gov.np/forms/ward-recommendation', fileType: 'pdf', isExternal: true, sortOrder: 2 },
+  { serviceId: 'citizenship', formId: 'cit_form', name: 'Citizenship Application Form', nameNepali: 'नागरिकता आवेदन फारम', description: 'Main application form for citizenship', url: 'https://daobhaktapur.moha.gov.np/post/citizenship-record-extraction-form', fileType: 'pdf', isExternal: true, sortOrder: 1 },
+  { serviceId: 'citizenship', formId: 'cit_ward', name: 'Ward Recommendation Request', nameNepali: 'वडा सिफारिस अनुरोध', description: 'Form to request ward recommendation', url: 'https://daobhaktapur.moha.gov.np/en/page/forms-8', fileType: 'pdf', isExternal: true, sortOrder: 2 },
 
   // Passport
-  { serviceId: 'passport', formId: 'pp_online', name: 'Online Application Portal', nameNepali: 'अनलाइन आवेदन पोर्टल', description: 'Official passport application portal', url: 'https://nepalpassport.gov.np', fileType: 'online', isExternal: true, sortOrder: 1 },
+  { serviceId: 'passport', formId: 'pp_online', name: 'Online Application Portal', nameNepali: 'अनलाइन आवेदन पोर्टल', description: 'Official passport application portal', url: 'https://verification1.nepalpassport.gov.np/uploads/g_Q6z_W_Hj_Ic_DQM_Oqn_Guq_G_Tz_Npa_ZXJYNC_meta_Zm9yb_T_It_NG_12_Mi0x_Ln_Bk_Zg_0cffb4c683.pdf', fileType: 'online', isExternal: true, sortOrder: 1 },
   { serviceId: 'passport', formId: 'pp_minor', name: 'Minor Passport Consent Form', nameNepali: 'नाबालक राहदानी सहमति फारम', description: 'Parental consent for minor passport', url: 'https://nepalpassport.gov.np/forms/minor', fileType: 'pdf', isExternal: true, sortOrder: 2 },
 
   // Driving License
-  { serviceId: 'driving', formId: 'dl_online', name: 'Online Application Portal', nameNepali: 'अनलाइन आवेदन पोर्टल', description: 'Department of Transport Management portal', url: 'https://dotm.gov.np', fileType: 'online', isExternal: true, sortOrder: 1 },
+  { serviceId: 'driving', formId: 'dl_online', name: 'Online Application Portal', nameNepali: 'अनलाइन आवेदन पोर्टल', description: 'Department of Transport Management portal', url: 'https://onlineedlreg.dotm.gov.np/Nepal_DLReg/homepage_', fileType: 'online', isExternal: true, sortOrder: 1 },
   { serviceId: 'driving', formId: 'dl_medical', name: 'Medical Form Template', nameNepali: 'मेडिकल फारम ढाँचा', description: 'Medical certificate format for driving license', url: 'https://dotm.gov.np/forms/medical', fileType: 'pdf', isExternal: true, sortOrder: 2 },
 
   // Land
