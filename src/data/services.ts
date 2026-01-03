@@ -1,4 +1,4 @@
-import { FileText, MapPin, Home, Car, GraduationCap, Heart, Briefcase, Users } from "lucide-react";
+import { FileText, MapPin, Home, Car, GraduationCap, Heart, Briefcase, Users, Baby } from "lucide-react";
 
 export interface Service {
   id: string;
@@ -66,22 +66,22 @@ export const services: Service[] = [
     available: true,
   },
   {
+    id: "birth",
+    title: "Birth Certificate",
+    titleNepali: "जन्म दर्ता प्रमाणपत्र",
+    description: "Register birth and get certificate",
+    icon: Baby,
+    category: "Civil",
+    available: true,
+  },
+  {
     id: "business",
     title: "Business Registration",
-    titleNepali: "व्यापार दर्ता",
+    titleNepali: "व्यापार/कम्पनी दर्ता",
     description: "Register your business or company",
     icon: Briefcase,
     category: "Business",
-    available: false,
-  },
-  {
-    id: "birth",
-    title: "Birth Certificate",
-    titleNepali: "जन्म दर्ता",
-    description: "Register birth and get certificate",
-    icon: Users,
-    category: "Civil",
-    available: false,
+    available: true,
   },
 ];
 
@@ -469,6 +469,126 @@ export const educationEligibility: EligibilityQuestion[] = [
   },
 ];
 
+// ===== BIRTH CERTIFICATE =====
+export const birthEligibility: EligibilityQuestion[] = [
+  {
+    id: "registration_type",
+    question: "What type of birth registration is this?",
+    questionNepali: "यो कुन प्रकारको जन्म दर्ता हो?",
+    options: [
+      { value: "new", label: "New Birth Registration", labelNepali: "नयाँ जन्म दर्ता", nextQuestion: "birth_location" },
+      { value: "late", label: "Late Registration (after 35 days)", labelNepali: "ढिलो दर्ता (३५ दिन पछि)", nextQuestion: "late_reason" },
+      { value: "copy", label: "Duplicate/Copy Certificate", labelNepali: "प्रतिलिपि प्रमाणपत्र", nextQuestion: "original_registered" },
+    ],
+  },
+  {
+    id: "birth_location",
+    question: "Where did the birth occur?",
+    questionNepali: "जन्म कहाँ भएको थियो?",
+    options: [
+      { value: "home", label: "Home Birth", labelNepali: "घरमा", nextQuestion: "parent_citizen" },
+      { value: "hospital", label: "Hospital/Health Facility", labelNepali: "अस्पताल/स्वास्थ्य संस्था", nextQuestion: "parent_citizen" },
+      { value: "abroad", label: "Abroad", labelNepali: "विदेशमा", nextQuestion: "embassy_registration" },
+    ],
+  },
+  {
+    id: "parent_citizen",
+    question: "Is at least one parent a Nepali citizen?",
+    questionNepali: "के कम्तिमा एक अभिभावक नेपाली नागरिक हुनुहुन्छ?",
+    options: [
+      { value: "yes", label: "Yes", labelNepali: "हो", eligible: true, reason: "You can register the birth at your local Ward Office within 35 days. Gather required documents and visit the ward office." },
+      { value: "no", label: "No", labelNepali: "होइन", eligible: false, reason: "Birth registration in Nepal requires at least one parent to be a Nepali citizen. Please contact the relevant embassy for guidance." },
+    ],
+  },
+  {
+    id: "late_reason",
+    question: "How late is the registration?",
+    questionNepali: "दर्ता कति ढिलो भयो?",
+    options: [
+      { value: "within_year", label: "Within 1 year", labelNepali: "१ वर्ष भित्र", eligible: true, reason: "Late registration is allowed with a small fee. Visit your Ward Office with required documents." },
+      { value: "over_year", label: "More than 1 year", labelNepali: "१ वर्ष भन्दा बढी", eligible: true, reason: "Registration after 1 year may require additional documentation and verification. Contact your Ward Office for specific requirements." },
+    ],
+  },
+  {
+    id: "original_registered",
+    question: "Was the birth originally registered?",
+    questionNepali: "के जन्म पहिले दर्ता भएको थियो?",
+    options: [
+      { value: "yes", label: "Yes", labelNepali: "हो", eligible: true, reason: "You can get a duplicate certificate from the same Ward Office where birth was registered." },
+      { value: "no", label: "No", labelNepali: "होइन", eligible: false, reason: "If birth was never registered, you need to do late registration first, then get certificate." },
+    ],
+  },
+  {
+    id: "embassy_registration",
+    question: "Has the birth been registered at Nepali Embassy?",
+    questionNepali: "के जन्म नेपाली दूतावासमा दर्ता भएको छ?",
+    options: [
+      { value: "yes", label: "Yes", labelNepali: "हो", eligible: true, reason: "Bring embassy registration documents to your home Ward Office for Nepal birth certificate." },
+      { value: "no", label: "No", labelNepali: "होइन", eligible: true, reason: "First register at the nearest Nepali Embassy, then bring documents to your home Ward Office." },
+    ],
+  },
+];
+
+// ===== BUSINESS REGISTRATION =====
+export const businessEligibility: EligibilityQuestion[] = [
+  {
+    id: "business_type",
+    question: "What type of business do you want to register?",
+    questionNepali: "तपाईं कुन प्रकारको व्यवसाय दर्ता गर्न चाहनुहुन्छ?",
+    options: [
+      { value: "sole", label: "Sole Proprietorship (एकल स्वामित्व)", labelNepali: "एकल स्वामित्व", nextQuestion: "citizenship_check" },
+      { value: "partnership", label: "Partnership Firm (साझेदारी)", labelNepali: "साझेदारी फर्म", nextQuestion: "partners_count" },
+      { value: "pvt_ltd", label: "Private Limited Company", labelNepali: "प्राइभेट लिमिटेड कम्पनी", nextQuestion: "shareholders" },
+      { value: "public", label: "Public Limited Company", labelNepali: "पब्लिक लिमिटेड कम्पनी", nextQuestion: "shareholders_public" },
+    ],
+  },
+  {
+    id: "citizenship_check",
+    question: "Do you have valid Nepali citizenship?",
+    questionNepali: "के तपाईंसँग मान्य नेपाली नागरिकता छ?",
+    options: [
+      { value: "yes", label: "Yes", labelNepali: "हो", eligible: true, reason: "You can register a sole proprietorship at your local municipality (घरेलु उद्योग कार्यालय) or Small Industries Office." },
+      { value: "no", label: "No", labelNepali: "होइन", eligible: false, reason: "Nepali citizenship is required to register a business in Nepal. Foreign investors have different registration process." },
+    ],
+  },
+  {
+    id: "partners_count",
+    question: "How many partners will be in the firm?",
+    questionNepali: "फर्ममा कति साझेदार हुनेछन्?",
+    options: [
+      { value: "2_5", label: "2-5 partners", labelNepali: "२-५ साझेदार", nextQuestion: "all_nepali" },
+      { value: "6_20", label: "6-20 partners", labelNepali: "६-२० साझेदार", nextQuestion: "all_nepali" },
+    ],
+  },
+  {
+    id: "all_nepali",
+    question: "Are all partners Nepali citizens?",
+    questionNepali: "के सबै साझेदार नेपाली नागरिक हुनुहुन्छ?",
+    options: [
+      { value: "yes", label: "Yes", labelNepali: "हो", eligible: true, reason: "You can register at the Office of Company Registrar (OCR). Prepare partnership deed and required documents." },
+      { value: "no", label: "No", labelNepali: "होइन", eligible: true, reason: "Foreign investment requires approval from Department of Industry. Contact DOI first." },
+    ],
+  },
+  {
+    id: "shareholders",
+    question: "Will there be foreign shareholders?",
+    questionNepali: "के विदेशी सेयरधारक हुनेछन्?",
+    options: [
+      { value: "no", label: "No, all Nepali", labelNepali: "होइन, सबै नेपाली", eligible: true, reason: "Register at Office of Company Registrar (OCR). Minimum 1 shareholder and 1 director required." },
+      { value: "yes", label: "Yes, foreign investment", labelNepali: "हो, विदेशी लगानी", eligible: true, reason: "Requires approval from Department of Industry (DOI) first, then company registration at OCR." },
+    ],
+  },
+  {
+    id: "shareholders_public",
+    question: "What is your minimum planned capital?",
+    questionNepali: "तपाईंको न्यूनतम योजित पूँजी कति हो?",
+    options: [
+      { value: "above_10cr", label: "Above 10 Crore NPR", labelNepali: "१० करोड रुपैया माथि", eligible: true, reason: "Public limited companies require minimum NPR 10 crore capital, 7+ shareholders. Register at OCR." },
+      { value: "below_10cr", label: "Below 10 Crore NPR", labelNepali: "१० करोड रुपैया भन्दा कम", eligible: false, reason: "Public limited company requires minimum 10 crore NPR. Consider Private Limited instead." },
+    ],
+  },
+];
+
 // ===== SERVICE ELIGIBILITY MAP =====
 export const serviceEligibility: Record<string, EligibilityQuestion[]> = {
   citizenship: citizenshipEligibility,
@@ -477,6 +597,8 @@ export const serviceEligibility: Record<string, EligibilityQuestion[]> = {
   land: landEligibility,
   marriage: marriageEligibility,
   education: educationEligibility,
+  birth: birthEligibility,
+  business: businessEligibility,
 };
 
 // ===== REQUIRED DOCUMENTS =====
@@ -811,6 +933,23 @@ export const educationDocuments: RequiredDocument[] = [
   },
 ];
 
+// Birth Certificate Documents
+export const birthDocuments: RequiredDocument[] = [
+  { id: "hospital_cert", name: "Hospital Birth Certificate", nameNepali: "अस्पताल जन्म प्रमाणपत्र", description: "Birth certificate from hospital/health facility (if hospital birth)", required: false, forTypes: ["new"] },
+  { id: "parent_citizenship", name: "Parent's Citizenship", nameNepali: "अभिभावकको नागरिकता", description: "Citizenship of father and/or mother", required: true, forTypes: ["new", "late"] },
+  { id: "parent_marriage", name: "Marriage Certificate", nameNepali: "विवाह दर्ता प्रमाणपत्र", description: "Parents' marriage registration certificate", required: true, forTypes: ["new", "late"] },
+  { id: "birth_form", name: "Birth Registration Form", nameNepali: "जन्म दर्ता फारम", description: "Filled birth registration form from Ward Office", required: true, forTypes: ["new", "late"] },
+];
+
+// Business Registration Documents
+export const businessDocuments: RequiredDocument[] = [
+  { id: "citizenship_business", name: "Citizenship of All Owners", nameNepali: "सबै मालिकको नागरिकता", description: "Citizenship of proprietor/all partners/directors", required: true, forTypes: ["sole", "partnership", "pvt_ltd"] },
+  { id: "photos_business", name: "Passport Photos", nameNepali: "पासपोर्ट फोटो", description: "Recent passport size photos of owners", required: true, forTypes: ["sole", "partnership", "pvt_ltd"] },
+  { id: "moa_aoa", name: "MOA & AOA", nameNepali: "प्रबन्धपत्र र नियमावली", description: "Memorandum and Articles of Association (for companies)", required: true, forTypes: ["pvt_ltd", "public"] },
+  { id: "name_approval", name: "Company Name Approval", nameNepali: "कम्पनी नाम स्वीकृति", description: "Name reservation certificate from OCR", required: true, forTypes: ["pvt_ltd", "public"] },
+  { id: "bank_voucher", name: "Bank Deposit Voucher", nameNepali: "बैंक जम्मा भौचर", description: "Capital deposit voucher from bank", required: true, forTypes: ["pvt_ltd", "public"] },
+];
+
 // ===== SERVICE DOCUMENTS MAP =====
 export const serviceDocuments: Record<string, RequiredDocument[]> = {
   citizenship: citizenshipDocuments,
@@ -819,6 +958,8 @@ export const serviceDocuments: Record<string, RequiredDocument[]> = {
   land: landDocuments,
   marriage: marriageDocuments,
   education: educationDocuments,
+  birth: birthDocuments,
+  business: businessDocuments,
 };
 
 // ===== DISTRICTS AND OFFICES =====
@@ -1472,6 +1613,21 @@ export const educationProcedure: ProcedureStep[] = [
   },
 ];
 
+export const birthProcedure: ProcedureStep[] = [
+  { id: "step1", title: "Gather Documents", titleNepali: "कागजातहरू जम्मा गर्नुहोस्", description: "Collect parent citizenship, marriage certificate, and hospital birth certificate if applicable.", isOnline: false, tips: ["Hospital birth cert not mandatory for home births"] },
+  { id: "step2", title: "Visit Ward Office", titleNepali: "वडा कार्यालय जानुहोस्", description: "Go to your local Ward Office where the birth occurred or parents' permanent address.", isOnline: false, tips: ["Either parent can register", "Within 35 days is free"] },
+  { id: "step3", title: "Fill Registration Form", titleNepali: "दर्ता फारम भर्नुहोस्", description: "Complete the birth registration form (Schedule 2) at the ward office.", isOnline: true, link: "https://donidcr.gov.np", tips: ["Online registration also available via donidcr.gov.np"] },
+  { id: "step4", title: "Collect Certificate", titleNepali: "प्रमाणपत्र लिनुहोस्", description: "Receive birth registration certificate same day or within 7 days.", isOnline: false, tips: ["Get multiple copies for future use"] },
+];
+
+export const businessProcedure: ProcedureStep[] = [
+  { id: "step1", title: "Reserve Company Name", titleNepali: "कम्पनी नाम आरक्षण", description: "Apply for name reservation at Office of Company Registrar (OCR) online.", isOnline: true, link: "https://application.ocr.gov.np", tips: ["Check name availability first", "Name valid for 60 days"] },
+  { id: "step2", title: "Prepare Documents", titleNepali: "कागजातहरू तयार गर्नुहोस्", description: "Draft MOA/AOA, get citizenship copies, photos of all directors/shareholders.", isOnline: false, tips: ["Minimum 1 shareholder for Pvt Ltd", "Minimum capital: NPR 1 lakh"] },
+  { id: "step3", title: "Deposit Capital", titleNepali: "पूँजी जम्मा गर्नुहोस्", description: "Deposit minimum capital in a bank and get deposit voucher.", isOnline: false, tips: ["Open company bank account", "Get bank voucher for OCR"] },
+  { id: "step4", title: "Online Application", titleNepali: "अनलाइन आवेदन", description: "Submit company registration application online at OCR portal.", isOnline: true, link: "https://application.ocr.gov.np", tips: ["Upload all documents", "Pay registration fee online"] },
+  { id: "step5", title: "Collect Certificate", titleNepali: "प्रमाणपत्र लिनुहोस्", description: "Collect company registration certificate from OCR after approval.", isOnline: false, tips: ["Processing: 5-10 days", "Then register for PAN at IRD"] },
+];
+
 // ===== SERVICE PROCEDURE MAP =====
 export const serviceProcedures: Record<string, ProcedureStep[]> = {
   citizenship: citizenshipProcedure,
@@ -1480,6 +1636,8 @@ export const serviceProcedures: Record<string, ProcedureStep[]> = {
   land: landProcedure,
   marriage: marriageProcedure,
   education: educationProcedure,
+  birth: birthProcedure,
+  business: businessProcedure,
 };
 
 // ===== COST AND TIME =====
@@ -1571,6 +1729,22 @@ export const educationCostAndTime: CostAndTimeInfo = {
   ],
 };
 
+export const birthCostAndTime: CostAndTimeInfo = {
+  fee: "Free (within 35 days) | NPR 25-100 (late registration)",
+  feeNepali: "निःशुल्क (३५ दिन भित्र) | रु. २५-१०० (ढिलो दर्ता)",
+  processingTime: "Same day to 7 days",
+  processingTimeNepali: "उही दिन देखि ७ दिनसम्म",
+  notes: ["Registration within 35 days is free", "Late fee increases with delay", "Certificate issued same day in most wards"],
+};
+
+export const businessCostAndTime: CostAndTimeInfo = {
+  fee: "Sole: NPR 500-2,000 | Pvt Ltd: NPR 5,000-15,000",
+  feeNepali: "एकल: रु. ५००-२,००० | प्रा.लि.: रु. ५,०००-१५,०००",
+  processingTime: "3-15 working days",
+  processingTimeNepali: "३-१५ कार्य दिन",
+  notes: ["Name reservation: 3-5 days", "Company registration: 5-10 days", "PAN registration: Additional 2-3 days"],
+};
+
 // ===== SERVICE COST MAP =====
 export const serviceCosts: Record<string, CostAndTimeInfo> = {
   citizenship: citizenshipCostAndTime,
@@ -1579,6 +1753,8 @@ export const serviceCosts: Record<string, CostAndTimeInfo> = {
   land: landCostAndTime,
   marriage: marriageCostAndTime,
   education: educationCostAndTime,
+  birth: birthCostAndTime,
+  business: businessCostAndTime,
 };
 
 // ===== DOWNLOADABLE FORMS =====
@@ -1754,6 +1930,18 @@ export const educationForms: DownloadableForm[] = [
   },
 ];
 
+export const birthForms: DownloadableForm[] = [
+  { id: "birth_online", name: "Online Vital Registration Portal", nameNepali: "अनलाइन जन्म दर्ता पोर्टल", description: "Online birth registration system for local levels", url: "https://donidcr.gov.np", fileType: "online", isExternal: true },
+  { id: "birth_form_pdf", name: "Birth Registration Form (Sample)", nameNepali: "जन्म दर्ता फारम (नमूना)", description: "Sample birth registration form - actual form obtained from Ward Office", url: "https://gulariyamun.gov.np/sites/gulariyamun.gov.np/files/vital%20registration%20english.pdf", fileType: "pdf", isExternal: true },
+];
+
+export const businessForms: DownloadableForm[] = [
+  { id: "ocr_portal", name: "Office of Company Registrar Portal", nameNepali: "कम्पनी रजिष्ट्रार कार्यालय पोर्टल", description: "Official OCR portal for company registration", url: "https://application.ocr.gov.np", fileType: "online", isExternal: true },
+  { id: "ocr_main", name: "OCR Main Website", nameNepali: "OCR मुख्य वेबसाइट", description: "Office of Company Registrar main website", url: "https://ocr.gov.np", fileType: "online", isExternal: true },
+  { id: "doi_portal", name: "Department of Industry Portal", nameNepali: "उद्योग विभाग पोर्टल", description: "For industrial registration and foreign investment", url: "https://doind.gov.np", fileType: "online", isExternal: true },
+  { id: "ird_portal", name: "Inland Revenue Department (PAN)", nameNepali: "आन्तरिक राजस्व विभाग (PAN)", description: "For PAN registration after company registration", url: "https://ird.gov.np", fileType: "online", isExternal: true },
+];
+
 // ===== SERVICE FORMS MAP =====
 export const serviceForms: Record<string, DownloadableForm[]> = {
   citizenship: citizenshipForms,
@@ -1762,6 +1950,8 @@ export const serviceForms: Record<string, DownloadableForm[]> = {
   land: landForms,
   marriage: marriageForms,
   education: educationForms,
+  birth: birthForms,
+  business: businessForms,
 };
 
 // ===== SERVICE INFO =====
@@ -1815,5 +2005,19 @@ export const serviceInfo: Record<string, ServiceInfo> = {
     titleNepali: "शैक्षिक प्रमाणपत्र",
     description: "Equivalency and verification services",
     longDescription: "Get equivalency certificates for foreign educational qualifications, verification letters, and transcript requests from Nepali institutions.",
+  },
+  birth: {
+    id: "birth",
+    title: "Birth Certificate",
+    titleNepali: "जन्म दर्ता प्रमाणपत्र",
+    description: "Register birth and get certificate",
+    longDescription: "Register a birth at your local ward office and obtain an official birth certificate. Required for citizenship, school enrollment, and various legal purposes.",
+  },
+  business: {
+    id: "business",
+    title: "Business Registration",
+    titleNepali: "व्यापार/कम्पनी दर्ता",
+    description: "Register your business or company",
+    longDescription: "Complete guide to registering your business in Nepal. Whether you're starting a sole proprietorship, partnership, or private limited company, find all requirements and procedures here.",
   },
 };

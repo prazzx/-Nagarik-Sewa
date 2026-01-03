@@ -25,7 +25,8 @@ type OptionType = {
 
 const EligibilityChecker = ({ serviceId = "citizenship" }: EligibilityCheckerProps) => {
   const eligibilityQuestions = serviceEligibility[serviceId] || [];
-  const [currentQuestionId, setCurrentQuestionId] = useState<string>("type");
+  const firstQuestionId = eligibilityQuestions.length > 0 ? eligibilityQuestions[0].id : "";
+  const [currentQuestionId, setCurrentQuestionId] = useState<string>(firstQuestionId);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [result, setResult] = useState<EligibilityResult | null>(null);
 
@@ -46,7 +47,7 @@ const EligibilityChecker = ({ serviceId = "citizenship" }: EligibilityCheckerPro
   };
 
   const handleReset = () => {
-    setCurrentQuestionId("type");
+    setCurrentQuestionId(firstQuestionId);
     setAnswers({});
     setResult(null);
   };

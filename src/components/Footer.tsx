@@ -27,17 +27,19 @@ const Footer = () => {
             <ul className="space-y-2 text-sm opacity-80">
               <li><Link to="/" className="hover:opacity-100 transition-opacity">Home</Link></li>
               <li><Link to="/services/citizenship" className="hover:opacity-100 transition-opacity">Citizenship</Link></li>
-              <li><Link to="#" className="hover:opacity-100 transition-opacity">Passport</Link></li>
-              <li><Link to="#" className="hover:opacity-100 transition-opacity">Driving License</Link></li>
+              <li><Link to="/services/passport" className="hover:opacity-100 transition-opacity">Passport</Link></li>
+              <li><Link to="/services/driving" className="hover:opacity-100 transition-opacity">Driving License</Link></li>
+              <li><Link to="/about" className="hover:opacity-100 transition-opacity">About</Link></li>
+              <li><Link to="/contact" className="hover:opacity-100 transition-opacity">Contact</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-semibold mb-4">Resources</h4>
             <ul className="space-y-2 text-sm opacity-80">
-              <li><a href="#" className="hover:opacity-100 transition-opacity">Government Portal</a></li>
-              <li><a href="#" className="hover:opacity-100 transition-opacity">Ministry of Home Affairs</a></li>
-              <li><a href="#" className="hover:opacity-100 transition-opacity">Department of Immigration</a></li>
+              <li><a href="https://nepal.gov.np" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">Government Portal</a></li>
+              <li><a href="https://moha.gov.np" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">Ministry of Home Affairs</a></li>
+              <li><a href="https://immigration.gov.np" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">Department of Immigration</a></li>
             </ul>
           </div>
 

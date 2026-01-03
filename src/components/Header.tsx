@@ -29,10 +29,10 @@ const Header = () => {
           <Link to="/services/citizenship" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             Services
           </Link>
-          <Link to="#" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+          <Link to="/about" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             About
           </Link>
-          <Link to="#" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+          <Link to="/contact" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
             Contact
           </Link>
         </nav>
@@ -67,14 +67,14 @@ const Header = () => {
               Services
             </Link>
             <Link
-              to="#"
+              to="/about"
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
               onClick={() => setIsMenuOpen(false)}
             >
               About
             </Link>
             <Link
-              to="#"
+              to="/contact"
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors py-2"
               onClick={() => setIsMenuOpen(false)}
             >
